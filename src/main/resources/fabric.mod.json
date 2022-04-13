@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
-  "version": "${version}",
+  "id": "fleeinganimals",
+  "version": "1.0.0",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Fleeing Mobs",
+  "description": "Change the behaviour of passive mobs to make them flee when other animals are hurt.",
   "authors": [
-    "Me!"
+    "Feelzor"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -14,12 +14,12 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/fleeinganimals/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "ovh.feelzor.fleeinganimals.FleeingAnimals"
     ]
   },
   "mixins": [

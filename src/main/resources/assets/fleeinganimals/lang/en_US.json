@@ -1,0 +1,4 @@
+{
+  "fleeinganimals.fear_radius": "The detection radius multiplier. It will be multiplied by the entity's detection range. Default: 1.0",
+  "fleeinganimals.all_animals_flee": "Whether all the animals shall flee regardless of their type. If set to false, only the same animals will flee. Default: true"
+}
