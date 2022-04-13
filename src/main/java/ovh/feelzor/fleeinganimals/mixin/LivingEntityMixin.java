@@ -3,7 +3,6 @@ package ovh.feelzor.fleeinganimals.mixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.Box;
@@ -11,7 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ovh.feelzor.fleeinganimals.config.FleeingAnimalsConfig.GlobalConfigGroup;
+
+import static ovh.feelzor.fleeinganimals.FleeingAnimals.getConfig;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
@@ -22,10 +22,10 @@ public class LivingEntityMixin {
 
 		if (!((Object) this instanceof PassiveEntity thisPassiveMob)) return;
 
-		Class<? extends PassiveEntity> afraidClass = (GlobalConfigGroup.allAnimalsFlee.getValue()) ? PassiveEntity.class : thisPassiveMob.getClass();
+		Class<? extends PassiveEntity> afraidClass = (getConfig().allAnimalsFlee) ? PassiveEntity.class : thisPassiveMob.getClass();
 
-		double d = thisPassiveMob.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) * GlobalConfigGroup.fearRadius.getValue();
-		Box box = Box.from(thisPassiveMob.getPos()).expand(d, 10.0, d);
+		double d = thisPassiveMob.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) * getConfig().radius;
+		Box box = Box.from(thisPassiveMob.getPos()).expand(d, getConfig().yRadius, d);
 		thisPassiveMob.world.getEntitiesByClass(afraidClass, box, EntityPredicates.EXCEPT_SPECTATOR).stream()
 				.filter(mob -> mob != thisPassiveMob) // Other mobs only
 				.filter(mob -> mob.getAttacker() == null) // Not already attacked

@@ -1,32 +1,23 @@
 package ovh.feelzor.fleeinganimals.config;
 
-import com.oroarmor.config.*;
-import net.fabricmc.loader.api.FabricLoader;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
-import java.io.File;
-import java.util.List;
-
-import static java.util.List.of;
 import static ovh.feelzor.fleeinganimals.FleeingAnimals.MODID;
 
-public class FleeingAnimalsConfig extends Config {
+@Config(name = MODID)
+public class FleeingAnimalsConfig implements ConfigData {
 
-    private static final String CONFIG_FILENAME = "fleeinganimals.json";
+    @ConfigEntry.Gui.Tooltip(count = 2) // On some screens, the tooltip is too long - Break it down into two tooltips
+    @Comment(value = "The detection radius multiplier (for x and z axes). It will be multiplied by the entity's detection range. Default: 1.0")
+    public double radius = 1.0;
 
-    public static final ConfigItemGroup mainGroup = new GlobalConfigGroup();
-    private static final List<ConfigItemGroup> configs = of(mainGroup);
+    @Comment(value = "The detection radius on the vertical (y) axis. Default: 10.0")
+    public double yRadius = 10;
 
-    public FleeingAnimalsConfig() {
-        super(configs, new File(FabricLoader.getInstance().getConfigDir().toFile(), CONFIG_FILENAME), MODID);
-    }
-
-    public static class GlobalConfigGroup extends ConfigItemGroup {
-
-        public static final DoubleConfigItem fearRadius = new DoubleConfigItem("fear_radius", 1.0, "fleeinganimals.fear_radius");
-        public static final BooleanConfigItem allAnimalsFlee = new BooleanConfigItem("all_animals_flee", true, "fleeinganimals.all_animals_flee");
-
-        public GlobalConfigGroup() {
-            super(of(fearRadius, allAnimalsFlee), "flee_behaviour");
-        }
-    }
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    @Comment(value = "Whether all the animals shall flee regardless of their type. If set to false, only the same animals will flee. Default: true")
+    public boolean allAnimalsFlee = true;
 }

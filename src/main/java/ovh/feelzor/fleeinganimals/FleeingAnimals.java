@@ -1,5 +1,7 @@
 package ovh.feelzor.fleeinganimals;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +11,16 @@ public class FleeingAnimals implements ModInitializer {
 	public static final String MODID = "fleeinganimals";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	public static final FleeingAnimalsConfig CONFIG = new FleeingAnimalsConfig();
+	private static FleeingAnimalsConfig config;
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Reading config");
+		LOGGER.info("Initializing Fleeing Animals and its config");
+		AutoConfig.register(FleeingAnimalsConfig.class, JanksonConfigSerializer::new);
+		config = AutoConfig.getConfigHolder(FleeingAnimalsConfig.class).getConfig();
+	}
 
-		CONFIG.readConfigFromFile();
-		CONFIG.saveConfigToFile();
+	public static FleeingAnimalsConfig getConfig() {
+		return config;
 	}
 }

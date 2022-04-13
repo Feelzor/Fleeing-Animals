@@ -18,12 +18,11 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "ovh.feelzor.fleeinganimals.FleeingAnimals"
-    ]
+    "main": ["ovh.feelzor.fleeinganimals.FleeingAnimals"],
+    "modmenu": ["ovh.feelzor.fleeinganimals.ModMenuIntegration"]
   },
   "mixins": [
-    "modid.mixins.json"
+    "fleeinganimals.mixins.json"
   ],
 
   "depends": {
