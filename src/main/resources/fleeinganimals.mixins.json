@@ -4,10 +4,9 @@
   "package": "ovh.feelzor.fleeinganimals.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-  ],
-  "client": [
     "LivingEntityMixin"
   ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
