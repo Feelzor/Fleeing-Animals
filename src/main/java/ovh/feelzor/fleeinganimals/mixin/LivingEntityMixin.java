@@ -22,7 +22,7 @@ public class LivingEntityMixin {
 
 		if (!((Object) this instanceof PassiveEntity thisPassiveMob)) return;
 
-		Class<? extends PassiveEntity> afraidClass = (getConfig().allAnimalsFlee) ? PassiveEntity.class : thisPassiveMob.getClass();
+		Class<? extends PassiveEntity> afraidClass = (!getConfig().sameSpeciesOnly) ? PassiveEntity.class : thisPassiveMob.getClass();
 
 		double d = thisPassiveMob.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) * getConfig().radius;
 		Box box = Box.from(thisPassiveMob.getPos()).expand(d, getConfig().yRadius, d);

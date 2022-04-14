@@ -1,5 +1,5 @@
-![Requires Fabric API](./src/main/resources/assets/fleeinganimals/requirements/fabric-api.png)
-![Requires Cloth Config API](./src/main/resources/assets/fleeinganimals/requirements/cloth-config.png)
+[![Requires Fabric API](./src/main/resources/assets/fleeinganimals/requirements/fabric-api.png)](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
+[![Requires Cloth Config API](./src/main/resources/assets/fleeinganimals/requirements/cloth-config.png)](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 
 # Fleeing Animals
 
@@ -19,9 +19,9 @@ If for some reason, you aren't satisfied with the default configuration, you can
 to twice their follow range.
 - `yRadius` is the maximum number of vertical blocks you can be seen by other passive entities. If you set it to 100
 for example, animals will detect you if you hit another entity up to 100 blocks over their head.
-- `allAnimalsFlee` decide whether you want all passive entities to flee when you hit an animal (cows will flee if you 
-hit chickens), or if you want them to flee only when hitting their family (cows will flee **only** if you hit another
-cow).
+- `sameSpeciesOnly` decide whether you want all passive entities to flee only when hitting their family (cows will flee 
+**only** if you hit another cow), or you want them to flee when you hit any other animal (cows will flee if you hit
+chickens).
 
 ## Compatibility
 

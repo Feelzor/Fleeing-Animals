@@ -4,7 +4,7 @@
   "text.autoconfig.fleeinganimals.option.radius.@Tooltip[0]": "The detection radius multiplier (for x and z axes).",
   "text.autoconfig.fleeinganimals.option.radius.@Tooltip[1]": "It will be multiplied by the entity's detection range. Default: 1.0",
   "text.autoconfig.fleeinganimals.option.yRadius": "Y detection distance",
-  "text.autoconfig.fleeinganimals.option.allAnimalsFlee": "All nearby animals flee",
-  "text.autoconfig.fleeinganimals.option.allAnimalsFlee.@Tooltip[0]": "Whether all the animals shall flee regardless of their type.",
-  "text.autoconfig.fleeinganimals.option.allAnimalsFlee.@Tooltip[1]": "If set to false, only the same animals will flee. Default: true"
+  "text.autoconfig.fleeinganimals.option.sameSpeciesOnly": "Only same species flee",
+  "text.autoconfig.fleeinganimals.option.sameSpeciesOnly.@Tooltip[0]": "Whether all the animals shall flee regardless of their type.",
+  "text.autoconfig.fleeinganimals.option.sameSpeciesOnly.@Tooltip[1]": "If set to true, only the same animals will flee. Default: false"
 }

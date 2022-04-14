@@ -18,6 +18,6 @@ public class FleeingAnimalsConfig implements ConfigData {
     public double yRadius = 10;
 
     @ConfigEntry.Gui.Tooltip(count = 2)
-    @Comment(value = "Whether all the animals shall flee regardless of their type. If set to false, only the same animals will flee. Default: true")
-    public boolean allAnimalsFlee = true;
+    @Comment(value = "Whether all the animals shall flee regardless of their type. If set to true, only the same animals will flee. Default: false")
+    public boolean sameSpeciesOnly = false;
 }
