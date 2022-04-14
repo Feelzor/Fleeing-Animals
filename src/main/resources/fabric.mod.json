@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "fleeinganimals",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "name": "Fleeing Mobs",
   "description": "Change the behaviour of passive mobs to make them flee when other animals are hurt.",
