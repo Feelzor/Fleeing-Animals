@@ -26,7 +26,7 @@ public class LivingEntityMixin {
 
 		double d = thisPassiveMob.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE) * getConfig().radius;
 		Box box = Box.from(thisPassiveMob.getPos()).expand(d, getConfig().yRadius, d);
-		thisPassiveMob.world.getEntitiesByClass(afraidClass, box, EntityPredicates.EXCEPT_SPECTATOR).stream()
+		thisPassiveMob.getWorld().getEntitiesByClass(afraidClass, box, EntityPredicates.EXCEPT_SPECTATOR).stream()
 				.filter(mob -> mob != thisPassiveMob) // Other mobs only
 				.filter(mob -> mob.getAttacker() == null) // Not already attacked
 				.forEach(mob -> mob.setAttacker(attacker));
