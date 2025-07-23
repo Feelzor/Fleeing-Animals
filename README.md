@@ -2,6 +2,7 @@
 [![Requires Cloth Config API](./src/main/resources/assets/fleeinganimals/requirements/cloth-config.png)](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 
 [![Support me on Patreon](./src/main/resources/assets/fleeinganimals/requirements/patreon_support.png)](https://patreon.com/Feelzor?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)
+[![Support me on Ko-fi](./src/main/resources/assets/fleeinganimals/requirements/kofi_support.webp)](https://ko-fi.com/feelzor)
 
 # Fleeing Animals
 
