@@ -23,10 +23,9 @@ import static ovh.feelzor.fleeinganimals.FleeingAnimals.getConfig;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setAttacker(Lnet/minecraft/entity/LivingEntity;)V"), method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z")
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)V"), method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z")
 	private void propagateAttacker(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> ci) {
 		// The method invokes setAttacker when attacker is known to be a LivingEntity.
-		LivingEntity attacker = (LivingEntity) source.getAttacker();
 		if (!((Object) this instanceof PassiveEntity thisPassiveMob)) return;
 
 		Class<? extends PassiveEntity> afraidClass = (!getConfig().sameSpeciesOnly) ? PassiveEntity.class : thisPassiveMob.getClass();
