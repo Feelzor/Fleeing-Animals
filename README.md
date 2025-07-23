@@ -1,6 +1,8 @@
 [![Requires Fabric API](./src/main/resources/assets/fleeinganimals/requirements/fabric-api.png)](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 [![Requires Cloth Config API](./src/main/resources/assets/fleeinganimals/requirements/cloth-config.png)](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 
+[![Support me on Patreon](./src/main/resources/assets/fleeinganimals/requirements/patreon_support.png)](https://patreon.com/Feelzor?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)
+
 # Fleeing Animals
 
 Fleeing Animals is a simple mod that changes the behaviour of passive entities. Once hit, they will flee as usual
