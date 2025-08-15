@@ -18,7 +18,7 @@ repositories {
 	// for more information about repositories.
 	maven { url 'https://jitpack.io' }
 
-	// Needed to retrieve Cloth Config Lite for Omega Config in development environments.
+	// Needed to retrieve Cloth Config Lite for development environments.
 	maven {
 		name = "Shedaniel's Maven"
 		url = "https://maven.shedaniel.me/"
