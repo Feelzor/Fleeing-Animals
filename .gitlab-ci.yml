@@ -6,7 +6,7 @@ variables:
   GIT_DEPTH: 0
 
 default:
-  image: gradle:9.6.1-jdk21
+  image: gradle:9.6.1-jdk25
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
