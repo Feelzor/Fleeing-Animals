@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "fleeinganimals",
-  "version": "9.0.0",
+  "version": "${version}",
 
   "name": "Fleeing Mobs",
   "description": "Change the behaviour of passive mobs to make them flee when other animals are hurt.",
@@ -27,11 +27,11 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.16.14",
-    "fabric-api": "*",
-    "minecraft": "26.x",
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": ">=${fabric_version}",
+    "minecraft": "${minecraft_version}",
     "java": ">=25",
-    "cloth-config2": ">=26.1.0"
+    "cloth-config2": ">=${cloth_config_version}"
   },
   "suggests": {}
 }
