@@ -1,6 +1,10 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
 	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
+	id 'com.modrinth.minotaur' version '2.+'
+	id 'net.darkhax.curseforgegradle' version '1.1.+'
 }
 
 version = project.mod_version
@@ -88,4 +92,48 @@ publishing {
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
 	}
+}
+
+// Modrinth / Curseforge deployment
+def tag = System.getenv("CI_COMMIT_TAG") ?: project.version.toString()
+
+// Expects tags like: v1.4.0 or v1.4.0-beta
+def tagMatch = tag =~ /^v?([\d.]+)(?:-(alpha|beta))?/
+def modVersion  = tagMatch ? tagMatch.group(1) : tag
+def releaseType = tagMatch ? (tagMatch.group(2) ?: "release") : "release"
+def mcVersions = (project.findProperty("supported_minecraft_versions") as String).split(",")*.trim()
+
+def changelogText = {
+	def output = "git tag -l --format=%(contents) ${tag}".execute().text.trim()
+	return output ?: "See commit history for ${tag}."
+}()
+
+modrinth {
+	token = System.getenv("MODRINTH_TOKEN")
+	projectId = "pz6Trz9Z"
+	versionNumber = modVersion
+	versionType = releaseType
+	uploadFile = remapJar
+	gameVersions = mcVersions
+	loaders = ["fabric"]
+	changelog = changelogText
+
+	dependencies {
+		required.project "fabric-api"
+		required.project "cloth-config"
+		optional.project "modmenu"
+	}
+}
+
+tasks.register("curseforge", TaskPublishCurseForge) {
+	apiToken = System.getenv("CURSEFORGE_TOKEN")
+	disableVersionDetection()
+
+	def mainFile = upload("610525", remapJar)
+	mainFile.changelog = changelogText
+	mainFile.releaseType = releaseType
+	mainFile.addModLoader("Fabric")
+	mainFile.addGameVersion("Client")
+	mainFile.addGameVersion("Server")
+	mainFile.addGameVersion(mcVersions.toArray())
 }
