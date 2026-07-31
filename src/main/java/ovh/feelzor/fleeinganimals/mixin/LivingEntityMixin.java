@@ -1,15 +1,5 @@
 package ovh.feelzor.fleeinganimals.mixin;
 
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,26 +10,34 @@ import ovh.feelzor.fleeinganimals.mixin.accessors.LivingEntityAccessor;
 
 import static ovh.feelzor.fleeinganimals.FleeingAnimals.getConfig;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.phys.AABB;
+
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyDamage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)V"), method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z")
-	private void propagateAttacker(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> ci) {
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;actuallyHurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)V"), method = "hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z")
+	private void propagateAttacker(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> ci) {
 		// The method invokes setAttacker when attacker is known to be a LivingEntity.
-		if (!((Object) this instanceof PassiveEntity thisPassiveMob)) return;
+		if (!((Object) this instanceof AgeableMob thisPassiveMob)) return;
 
-		Class<? extends PassiveEntity> afraidClass = (!getConfig().sameSpeciesOnly) ? PassiveEntity.class : thisPassiveMob.getClass();
+		Class<? extends AgeableMob> afraidClass = (!getConfig().sameSpeciesOnly) ? AgeableMob.class : thisPassiveMob.getClass();
 
-		double d = thisPassiveMob.getAttributeValue(EntityAttributes.FOLLOW_RANGE) * getConfig().radius;
+		double d = thisPassiveMob.getAttributeValue(Attributes.FOLLOW_RANGE) * getConfig().radius;
 
-		Box box = Box.from(thisPassiveMob.getEntityPos()).expand(d, getConfig().yRadius, d);
-		world.getEntitiesByClass(afraidClass, box, EntityPredicates.EXCEPT_SPECTATOR).stream()
+		AABB box = AABB.unitCubeFromLowerCorner(thisPassiveMob.position()).inflate(d, getConfig().yRadius, d);
+		world.getEntitiesOfClass(afraidClass, box, EntitySelector.NO_SPECTATORS).stream()
 				.filter(mob -> mob != thisPassiveMob) // Other mobs only
-				.filter(mob -> mob.getAttacker() == null) // Not already attacked
+				.filter(mob -> mob.getLastHurtByMob() == null) // Not already attacked
 				.forEach(mob -> {
 					// From 1.21, the EscapeDangerGoal uses the last damage source and time to determine if the mob is fleeing.
 					((LivingEntityAccessor) mob).setLastDamageSource(source);
-					((LivingEntityAccessor) mob).setLastDamageTime(world.getTime());
+					((LivingEntityAccessor) mob).setLastDamageTime(world.getGameTime());
 				});
 	}
 }
